@@ -25,6 +25,7 @@
 - Touch on how there's been multiple attempts to solve this
 
 - Full Double Calculation on CPU
+
 - Relative to Center
 - Relative to Eye CPU and GPU
 - Emulated Doubles on GPU
@@ -34,6 +35,7 @@
 # Hypothesis
 
 ## Outline
+- 
 
 ## Rough Draft
 
