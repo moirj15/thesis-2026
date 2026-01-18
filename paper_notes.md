@@ -5,3 +5,9 @@
 - Section 5.2 goes over rendering relative to center
 - Section 5.3 goes over rendering relative to eye using the cpu
 - Section 5.4 goes over rendering relative to eye using the GPU
+- Section 5.4.1 Uses DSFUN90 to improve precision (emulated doubles)
+
+# Extended-Precision Floating-Point Numbers for GPU Computation
+- Provides details on accuracy and implementation
+- Talks about issues around shader compilers over optimizing
+  - Should see if this is an issue with hlsl/slang, believe that this can be turned off?
