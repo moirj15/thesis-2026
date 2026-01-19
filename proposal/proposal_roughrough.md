@@ -73,11 +73,30 @@
   - But only needs to be recomputed if the camera's position changes or if the center position of an object changes
   - Extra overhead for dynamic objects, better for static
 - Not great for large objects, as objects will be too far away for 32-bit precision
-- Cite recommended size in Ohlarik's paper
+- Specifically, objects spanning more than 131,071 meters per Ohlarik
 - 
 
+- Also need to note that this and relative to eye work by making the distances smaller in the final matrix multiplication, staying within the accurate bounds
 
 ### Relative to Eye
+- Similar to RTC, RTE modifies the usual MVP so the matrix values are small enough to be accurate when using 32-bit floats
+- First the normal MV is calculated using doubles, but the translation portion is zeroed out
+- Then the camera's position is subtracted from the position component of the vertices using double precision and uploaded to a dynamic vertex buffer 
+  - Results in having to reupload whenever a viewer or object moves
+  - Thankfully if a single object moves then only that object's vertices have to be updated
+  - The same MVP can be used for all models in the scene, assuming they're in the same coordinate system
+- This approach has the drawback of requiring a large number of updates to a GPU buffer, effectively limiting object size by PCIE bandwidth
+- There's another version of this technique that takes advantage of the GPU
+- First step is the same as the prior version, create a MV with the zeroed out translation
+- Then the positions, as doubles, are stored in a static buffer as two floats
+  - Show math for this calculation
+- Then the GPU can be used to perform the subtraction
+  - Show math
+- Leads to much faster calculations and removes the update drawbacks from the CPU method
+- Maximum distance per Ohlarik that this provides 1cm accuracy is 549,755,748,352m
+- Perfect for Earth and nearby planets
+- but falls flat once we reach Jupiter
+- Also has the drawback of not resolving jittering when zoomed super close up
 
 ### Emulated double GPU implementation
 
@@ -121,4 +140,9 @@
 
 # Papers
 - Deron Ohlarik, Precision, Precisions: https://help.agi.com/STKComponents/html/BlogPrecisionsPrecisions.htm
+  - Maybe use thorne's paper/thesis instead
+- Thorne's PHD thesis chapter on jittering
+- Emulated doubles paper
+- More up to date doubles paper (pay $45 D:< )
+- 3D Globe book, chapter on vertex transform precision
 - 
