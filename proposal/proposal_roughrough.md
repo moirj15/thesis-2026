@@ -60,6 +60,14 @@
 - Has the obvious drawback of losing the performance provided by the GPU for massively parallel calculations
 
 ### Relative to Center
+- Requires calculating the center point of the object via the average of the positions
+- the center is then subtracted from each position
+- Then a special form of the Model-View matrix is constructed
+  - 
+- Models from most modeling packages are already in this format, so not necessary in those cases. Unless the model is exceedingly large
+- More useful for large objects
+-
+
 
 ### Relative to Eye
 
