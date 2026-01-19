@@ -99,7 +99,16 @@
 - Also has the drawback of not resolving jittering when zoomed super close up
 
 ### Emulated double GPU implementation
-
+- Similar to RTE's GPU method
+- Involves encoding doubles as two floats
+- Provides all of the math operations provided by normal floats
+- Has near double precision
+- Drawback of being slower than true native doubles
+- Takes double the memory
+- Have to worry about math optimizations
+  - Some languages allow disabling this and there are work around for implementing in languages where this is not an option
+  - Can disable in HLSL by using the `precise` keyword
+- Slower than single precision on the GPU
 
 # Solution/Hypothesis
 
@@ -109,6 +118,17 @@
 - Need some diagrams to describe the parallax rendering
 
 ## Rough Draft
+- The new solution proposed relies on a combination of emulated doubles and a technique similar to parallax mapping
+- This will be similar to a technique used to render voxels used in the game Teardown and a ray marching technique
+  - Figure out how to link to Doug's videos on parallax ray marching
+- This involves taking the bounding box's location and orientation in the scene
+- Calculating the scale of the bounding box
+- We know that only three faces of the bounding box are visible, if it were to be rendered as a solid rectangular prism
+- So we render the object from these three views into three textures
+- We then use emulated doubles to transform the 8 bounding box vertices
+- We then parallax map these textures onto the cube
+- My hypothesis is that this will result in objects that are visually equivalent with minimal jittering or equivalent to double precision
+
 
 
 # Solution Design and Implementation
@@ -128,6 +148,8 @@
   - Comparison of jitter against a control
 
 ## Rough Draft
+
+- To test the hypothesis, the existing methods need to be implemented along with the proposed solution
 
 
 # Roadmap
