@@ -63,10 +63,18 @@
 - Requires calculating the center point of the object via the average of the positions
 - the center is then subtracted from each position
 - Then a special form of the Model-View matrix is constructed
-  - 
+  - First transform the Center by the Model-View matrix, Center_eye
+  - Replace the translation component of the Model-View matrix with Center_eye to get the Model-ViewRTC
+  - Calculate MVPrtc by P * MVrtc
+  - Convert to 32-bit floats before uploading
 - Models from most modeling packages are already in this format, so not necessary in those cases. Unless the model is exceedingly large
 - More useful for large objects
--
+- Needs to be calculated per object
+  - But only needs to be recomputed if the camera's position changes or if the center position of an object changes
+  - Extra overhead for dynamic objects, better for static
+- Not great for large objects, as objects will be too far away for 32-bit precision
+- Cite recommended size in Ohlarik's paper
+- 
 
 
 ### Relative to Eye
@@ -109,3 +117,8 @@
 - End of March: Data collected and first draft completed
 - End of April: Final draft complete
 - May: Thesis defense
+
+
+# Papers
+- Deron Ohlarik, Precision, Precisions: https://help.agi.com/STKComponents/html/BlogPrecisionsPrecisions.htm
+- 
