@@ -144,12 +144,15 @@
 - Common base scene format
   - Slightly modified for each example 
 - Comparison to existing methods
-  - Collection of relevent timing data
+  - Collection of relevant timing data
   - Comparison of jitter against a control
 
 ## Rough Draft
 
-- To test the hypothesis, the existing methods need to be implemented along with the proposed solution
+- To test the hypothesis, the existing methods need to be implemented in an application along with the proposed solution
+- Once implemented, the application will be used to evaluate the proposed solution. 
+- Evaluation will involve comparing the performance of techniques
+- As well as comparing the resulting jittering
 
 
 # Roadmap
